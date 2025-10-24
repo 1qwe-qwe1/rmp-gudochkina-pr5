@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Блог | BoardGameHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="images/icon.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+        }
+        
+        body {
+            background-color: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header styles */
+        header {
+            background-color: #ffffff;
+            padding: 0;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .offers {
+            background-color: #ffd700;
+            padding: 12px 0;
+            text-align: center;
+        }
+        
+        .offers p {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin: 0;
+        }
+        
+        .offers span {
+            background-color: #1a1a1a;
+            color: #ffd700;
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin: 0 5px;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .logo {
+            font-size: 26px;
+            font-weight: 800;
+            color: #1a1a1a;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: #ffd700;
+            margin-right: 5px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: #1a1a1a;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            position: relative;
+            padding: 5px 0;
+            transition: all 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #ffd700;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #ffd700;
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .icon-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .icon-links a {
+            color: #1a1a1a;
+            font-size: 20px;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .icon-links a:hover {
+            color: #ffd700;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #ffd700;
+            color: #1a1a1a;
+            font-size: 12px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        /* Page header */
+        .page-header {
+            background-color: #f8f8f8;
+            padding: 40px 0;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 36px;
+            color: #1a1a1a;
+            margin-bottom: 15px;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        
+        .breadcrumb li {
+            margin: 0 5px;
+            font-size: 14px;
+            color: #7a7a7a;
+        }
+        
+        .breadcrumb li a {
+            color: #1a1a1a;
+            text-decoration: none;
+        }
+        
+        .breadcrumb li a:hover {
+            color: #ffd700;
+        }
+        
+        .breadcrumb li::after {
+            content: '/';
+            margin-left: 10px;
+            color: #7a7a7a;
+        }
+        
+        .breadcrumb li:last-child::after {
+            content: '';
+        }
+        
+        /* Blog layout */
+        .blog-layout {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 70px;
+        }
+        
+        /* Main content */
+        .blog-content {
+            flex: 2;
+        }
+        
+        /* Sidebar */
+        .blog-sidebar {
+            flex: 1;
+        }
+        
+        /* Blog posts */
+        .blog-posts {
+            display: grid;
+            gap: 30px;
+        }
+        
+        .blog-post {
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .blog-post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        .blog-post img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .post-content {
+            padding: 25px;
+        }
+        
+        .post-content h2 {
+            margin-bottom: 15px;
+            color: #1a1a1a;
+            font-size: 24px;
+        }
+        
+        .post-content p {
+            color: #7a7a7a;
+            margin-bottom: 20px;
+        }
+        
+        .post-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #9a9a9a;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .post-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .read-more {
+            display: inline-block;
+            color: #1a1a1a;
+            font-weight: 600;
+            text-decoration: none;
+            position: relative;
+        }
+        
+        .read-more::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #ffd700;
+            transition: transform 0.3s;
+            transform: scaleX(0);
+            transform-origin: right;
+        }
+        
+        .read-more:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        /* Sidebar */
+        .sidebar-widget {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .sidebar-widget h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .sidebar-widget h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: #ffd700;
+        }
+        
+        /* Categories */
+        .categories-list {
+            list-style: none;
+        }
+        
+        .categories-list li {
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .categories-list li a {
+            color: #4a4a4a;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .categories-list li a:hover {
+            color: #ffd700;
+        }
+        
+        .categories-list li span {
+            background-color: #f0f0f0;
+            color: #7a7a7a;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+        
+        /* Popular posts */
+        .popular-posts {
+            list-style: none;
+        }
+        
+        .popular-post {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .popular-post:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .popular-post img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        
+        .popular-post-content h4 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        
+        .popular-post-content h4 a {
+            color: #1a1a1a;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .popular-post-content h4 a:hover {
+            color: #ffd700;
+        }
+        
+        .popular-post-content span {
+            font-size: 13px;
+            color: #9a9a9a;
+        }
+        
+        /* Tags */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tag {
+            background-color: #f0f0f0;
+            color: #4a4a4a;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .tag:hover {
+            background-color: #ffd700;
+            color: #1a1a1a;
+        }
+        
+        /* Newsletter */
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .newsletter-form input {
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .newsletter-form button {
+            background-color: #ffd700;
+            color: #1a1a1a;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .newsletter-form button:hover {
+            background-color: #f0c900;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 50px;
+        }
+        
+        .pagination a, .pagination span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .pagination a {
+            background-color: #ffffff;
+            color: #1a1a1a;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s;
+        }
+        
+        .pagination a:hover, .pagination a.active {
+            background-color: #ffd700;
+            border-color: #ffd700;
+            color: #1a1a1a;
+        }
+        
+        .pagination span {
+            color: #7a7a7a;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            padding: 70px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 25px;
+            font-size: 18px;
+            color: #ffd700;
+        }
+        
+        .footer-section p {
+            color: #cccccc;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-section ul li a {
+            color: #cccccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section ul li a:hover {
+            color: #ffd700;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #2a2a2a;
+            color: #ffffff;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background-color: #ffd700;
+            color: #1a1a1a;
+            transform: translateY(-3px);
+        }
+        
+        .contact-info li {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            color: #cccccc;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #333333;
+            color: #9a9a9a;
+            font-size: 14px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #ffd700;
+            color: #1a1a1a;
+            padding: 12px 24px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .btn:hover {
+            background-color: #f0c900;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 992px) {
+            .blog-layout {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with navigation and offers -->
+    <header>
+        <div class="offers">
+            <p>🚀 <span>СКИДКА 15%</span> на первую покупку при регистрации | 🎁 <span>БЕСПЛАТНАЯ ДОСТАВКА</span> от 3000 руб.</p>
+        </div>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo"><span>♟️</span> BoardGameHub</div>
+                <nav>
+                    <ul>
+                        <li><a href="ProductCatalog.html">Каталог товаров</a></li>
+                        <li><a href="#" style="color: #ffd700;">Блог</a></li>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Доставка</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </nav>
+                <div class="icon-links">
+                    <a href="Bag.html">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">3</span>
+                    </a>
+                    <a href="#"><i class="fas fa-user"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="container">
+            <h1>Блог о настольных играх</h1>
+            <ul class="breadcrumb">
+                <li><a href="main.html">Главная</a></li>
+                <li>Блог</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Blog section -->
+    <section class="container">
+        <div class="blog-layout">
+            <!-- Main content -->
+            <div class="blog-content">
+                <div class="blog-posts">
+                    <!-- Post 1 -->
+                    <article class="blog-post">
+                        <img src="images/party2.jpg" alt="Как выбрать игру">
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar"></i> 12 мая 2023</span>
+                                <span><i class="far fa-clock"></i> 5 мин чтения</span>
+                                <span><i class="far fa-folder"></i> Советы</span>
+                            </div>
+                            <h2>Как выбрать первую настольную игру</h2>
+                            <p>Подробное руководство для тех, кто только начинает знакомство с миром настольных игр. Рассказываем, на что обратить внимание при выборе, как учитывать предпочтения игроков и на какие механизмы стоит обратить внимание новичкам.</p>
+                            <a href="#" class="read-more">Читать далее</a>
+                        </div>
+                    </article>
+                    
+                    <!-- Post 2 -->
+                    <article class="blog-post">
+                        <img src="images/top5.jpg" alt="Топ игр для детей">
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar"></i> 5 мая 2023</span>
+                                <span><i class="far fa-clock"></i> 7 мин чтения</span>
+                                <span><i class="far fa-folder"></i> Обзоры</span>
+                            </div>
+                            <h2>Топ-5 развивающих игр для детей</h2>
+                            <p>Лучшие игры, которые помогут развить логику, стратегическое мышление и коммуникативные навыки у детей разных возрастов. Мы протестировали десятки игр и отобрали самые интересные и полезные из них.</p>
+                            <a href="#" class="read-more">Читать далее</a>
+                        </div>
+                    </article>
+                    
+                    <!-- Post 3 -->
+                    <article class="blog-post">
+                        <img src="images/party.jpg" alt="Вечеринка с играми">
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar"></i> 28 апреля 2023</span>
+                                <span><i class="far fa-clock"></i> 8 мин чтения</span>
+                                <span><i class="far fa-folder"></i> Развлечения</span>
+                            </div>
+                            <h2>Как организовать игровую вечеринку</h2>
+                            <p>Советы по организации незабываемого вечера с настольными играми для друзей. От выбора игр до подготовки угощений и создания подходящей атмосферы. Все, что нужно знать для успешной игры в компании.</p>
+                            <a href="#" class="read-more">Читать далее</a>
+                        </div>
+                    </article>
+                    
+                    <!-- Post 4 -->
+                    <article class="blog-post">
+                        <img src="images/anc.jpg" alt="История настольных игр">
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar"></i> 15 апреля 2023</span>
+                                <span><i class="far fa-clock"></i> 10 мин чтения</span>
+                                <span><i class="far fa-folder"></i> История</span>
+                            </div>
+                            <h2>История настольных игр: от древности до наших дней</h2>
+                            <p>Путешествие во времени: как настольные игры развивались на протяжении веков. От древнеегипетского сенета до современных стратегий. Узнайте, какие игры были популярны в разные эпохи и как они повлияли на современные игры.</p>
+                            <a href="#" class="read-more">Читать далее</a>
+                        </div>
+                    </article>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="pagination">
+                    <a href="#" class="active">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <span>...</span>
+                    <a href="#">6</a>
+                    <a href="#"><i class="fas fa-chevron-right"></i></a>
+                </div>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="blog-sidebar">
+                <!-- Search widget -->
+                <div class="sidebar-widget">
+                    <h3>Поиск</h3>
+                    <div class="search-form">
+                        <input type="text" placeholder="Поиск по блогу...">
+                        <button class="btn" style="width: 100%; margin-top: 10px;">Найти</button>
+                    </div>
+                </div>
+                
+                <!-- Categories widget -->
+                <div class="sidebar-widget">
+                    <h3>Категории</h3>
+                    <ul class="categories-list">
+                        <li>
+                            <a href="#">Советы</a>
+                            <span>12</span>
+                        </li>
+                        <li>
+                            <a href="#">Обзоры</a>
+                            <span>8</span>
+                        </li>
+                        <li>
+                            <a href="#">Новости</a>
+                            <span>5</span>
+                        </li>
+                        <li>
+                            <a href="#">Развлечения</a>
+                            <span>7</span>
+                        </li>
+                        <li>
+                            <a href="#">История</a>
+                            <span>3</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Popular posts widget -->
+                <div class="sidebar-widget">
+                    <h3>Популярные статьи</h3>
